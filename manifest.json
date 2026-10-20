@@ -1,0 +1,20 @@
+{
+  "name": "Anime Lofi Girl - Cozy Night",
+  "short_name": "Lofi Home",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#13111C",
+  "theme_color": "#1E1A29",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
