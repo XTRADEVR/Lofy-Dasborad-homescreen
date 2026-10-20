@@ -1,258 +1,219 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Lofi Cozy Night Dashboard</title>
-    <!-- Meta tag untuk PWA -->
-    <meta name="theme-color" content="#1a1a2e">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Quicksand', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Efek Hujan / Suasana Lofi */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
-
-        /* Container Utama (Glassmorphism) */
-        .dashboard-container {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 24px;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            text-align: center;
-        }
-
-        /* Widget Jam */
-        .clock-box {
-            margin-bottom: 25px;
-        }
-
-        #digital-clock {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #00f2fe;
-            text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
-        }
-
-        #digital-date {
-            font-size: 1rem;
-            color: #dcdde1;
-            margin-top: 5px;
-        }
-
-        /* Pemutar Musik */
-        .player-box {
-            margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 16px;
-        }
-
-        #play-music-btn {
-            background: linear-gradient(45deg, #ff758c, #ff7eb3);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
-        }
-
-        #play-music-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
-        }
-
-        #music-status {
-            font-size: 0.85rem;
-            color: #a4b0be;
-            margin-top: 10px;
-        }
-
-        /* Catatan / Memori HP */
-        .note-box {
-            text-align: left;
-        }
-
-        .note-box label {
-            font-size: 0.9rem;
-            color: #f1f2f6;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        #user-note {
-            width: 100%;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 10px;
-            color: white;
-            font-size: 0.95rem;
-            resize: none;
-            outline: none;
-            margin-bottom: 10px;
-        }
-
-        #user-note:focus {
-            border-color: #00f2fe;
-        }
-
-        #save-note-btn {
-            background: #00b894;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        #save-note-btn:hover {
-            background: #55efc4;
-            color: #2d3436;
-        }
-
-        #save-message {
-            font-size: 0.8rem;
-            color: #55efc4;
-            margin-left: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Lofi Girl - Cozy Night Dashboard</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#13111C">
 </head>
-<body>
-
-    <div class="overlay"></div>
-
-    <div class="dashboard-container">
-        <!-- Widget Jam & Tanggal -->
-        <div class="clock-box">
-            <div id="digital-clock">00:00:00</div>
-            <div id="digital-date">Memuat tanggal...</div>
+<body data-mood="night">
+  <div class="dashboard-container">
+    
+    <!-- Header -->
+    <header>
+      <div class="brand">月 LOFI.NIGHT</div>
+      <div class="header-status">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          COZY MODE ON
         </div>
+        <button id="installBtn" class="install-btn hidden">Install PWA</button>
+      </div>
+    </header>
 
-        <!-- Widget Pemutar Musik -->
-        <div class="player-box">
-            <button id="play-music-btn">🎧 Play Lofi Beats</button>
-            <div id="music-status">Status: Paused</div>
-            <!-- Audio Stream Lo-Fi Publik yang Stabil -->
-            <audio id="lofi-audio" src="https://stream.zeno.fm/f3wvbbqmd88uv" preload="none"></audio>
+    <!-- Hero Grid -->
+    <div class="hero-grid">
+      <!-- Clock Card -->
+      <div class="card">
+        <div class="clock-main">
+          <div id="clock">07:45</div>
+          <div id="ampm">PM</div>
         </div>
+        <div id="dateLine">Tuesday, May 28, 2024</div>
+        <div class="quote-box">
+          <div id="quoteJp">焦らず、でも諦めに。</div>
+          <div id="quoteEn">Don't rush, but never give up.</div>
+        </div>
+      </div>
 
-        <!-- Widget Catatan (Local Storage / Memori HP) -->
-        <div class="note-box">
-            <label for="user-note">📝 Catatan / Daily Goal (Tersimpan di HP):</label>
-            <textarea id="user-note" placeholder="Tulis catatan atau targetmu di sini..."></textarea>
-            <button id="save-note-btn">Simpan</button>
-            <span id="save-message"></span>
+      <!-- Music Card -->
+      <div class="card">
+        <div class="music-header">
+          <div class="album-art">🎧</div>
+          <div class="track-info">
+            <div id="trackTitle">Night Drive</div>
+            <div class="artist">YOASOBI</div>
+          </div>
         </div>
+        <div class="progress-container" id="progressContainer">
+          <div id="trackProgress"></div>
+        </div>
+        <div class="time-row">
+          <span id="elapsed">1:23</span>
+          <span id="duration">3:45</span>
+        </div>
+        <div class="music-controls">
+          <button id="prevTrack" class="control-btn">⏮</button>
+          <button id="playBtn" class="play-main"><span id="playGlyph">⏸</span></button>
+          <button id="nextTrack" class="control-btn">⏭</button>
+        </div>
+        <div id="playerNote">Ambient Lofi Stream active</div>
+      </div>
     </div>
 
-    <!-- Script JavaScript Internal -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // 1. Logika Jam Real-Time
-            const clockElement = document.getElementById("digital-clock");
-            const dateElement = document.getElementById("digital-date");
+    <!-- Content Grid -->
+    <div class="content-grid">
+      
+      <!-- Shortcuts Card -->
+      <div class="card">
+        <div class="section-title">QUICK LAUNCH</div>
+        <div class="shortcuts-grid">
+          <div class="shortcut-item" data-action="messages">
+            <span class="shortcut-icon">💬</span>
+            <span class="shortcut-label">Messages</span>
+          </div>
+          <div class="shortcut-item" data-action="gallery">
+            <span class="shortcut-icon">🖼️</span>
+            <span class="shortcut-label">Gallery</span>
+          </div>
+          <div class="shortcut-item" data-action="focus">
+            <span class="shortcut-icon">⏳</span>
+            <span class="shortcut-label">Focus</span>
+          </div>
+          <div class="shortcut-item" data-action="notes">
+            <span class="shortcut-icon">📝</span>
+            <span class="shortcut-label">Notes</span>
+          </div>
+          <div class="shortcut-item" data-action="settings">
+            <span class="shortcut-icon">⚙️</span>
+            <span class="shortcut-label">Settings</span>
+          </div>
+          <div class="shortcut-item" data-action="wallpaper">
+            <span class="shortcut-icon">🌸</span>
+            <span class="shortcut-label">Wallpaper</span>
+          </div>
+        </div>
+      </div>
 
-            function updateTime() {
-                const now = new Date();
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const seconds = String(now.getSeconds()).padStart(2, '0');
-                clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+      <!-- Today's List Card -->
+      <div class="card">
+        <div class="list-header">
+          <div class="section-title">TODAY</div>
+          <div id="taskCount">0/4 done</div>
+        </div>
+        <div class="task-list">
+          <label class="task-item">
+            <input type="checkbox" class="task-item" checked>
+            <span>Study for math exam</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-item" checked>
+            <span>Complete project</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-item">
+            <span>Read 30 pages</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-item">
+            <span>Workout</span>
+          </label>
+        </div>
+      </div>
 
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                dateElement.textContent = now.toLocaleDateString('id-ID', options);
-            }
-            updateTime();
-            setInterval(updateTime, 1000);
+      <!-- Weather Card -->
+      <div class="card">
+        <div class="weather-top">
+          <div>
+            <div id="temperature">24°C</div>
+            <div id="weatherDescription">Partly Cloudy</div>
+            <div id="weatherPlace" style="font-size:11px; color:var(--text-muted); margin-top:2px;">Bekasi, Indonesia</div>
+          </div>
+          <div id="weatherIcon">🌙</div>
+        </div>
+        <div class="weather-forecast">
+          <div class="forecast-day">
+            <div>WED</div>
+            <div id="weatherIconWed">⛅</div>
+            <div class="temp"><span id="highWed">28</span>° <span id="lowWed" style="color:var(--text-muted)">18</span>°</div>
+          </div>
+          <div class="forecast-day">
+            <div>THU</div>
+            <div id="weatherIconThu">⛅</div>
+            <div class="temp"><span id="highThu">27</span>° <span id="lowThu" style="color:var(--text-muted)">17</span>°</div>
+          </div>
+          <div class="forecast-day">
+            <div>FRI</div>
+            <div id="weatherIconFri">🌧️</div>
+            <div class="temp"><span id="highFri">26</span>° <span id="lowFri" style="color:var(--text-muted)">18</span>°</div>
+          </div>
+          <div class="forecast-day">
+            <div>SAT</div>
+            <div id="weatherIconSat">🌙</div>
+            <div class="temp"><span id="highSat">29</span>° <span id="lowSat" style="color:var(--text-muted)">19</span>°</div>
+          </div>
+        </div>
+        <div class="weather-details">
+          <span id="windSpeed">Wind: 3.5 km/h</span>
+          <span id="weatherStatus" style="color:var(--primary); cursor:pointer;">Live</span>
+          <span id="refreshWeather" style="text-decoration:underline; cursor:pointer;">Refresh</span>
+        </div>
+        <!-- Hidden elements required by prompt IDs -->
+        <span id="highTemp" style="display:none">29°</span>
+        <span id="lowTemp" style="display:none">18°</span>
+      </div>
 
-            // 2. Logika Pemutar Musik Lo-Fi
-            const playBtn = document.getElementById("play-music-btn");
-            const audioPlayer = document.getElementById("lofi-audio");
-            const musicStatus = document.getElementById("music-status");
-            let isPlaying = false;
+      <!-- Calendar Card -->
+      <div class="card">
+        <div class="cal-header">
+          <button id="prevMonth" class="cal-nav">&lt;</button>
+          <div id="monthLabel">October 2026</div>
+          <button id="nextMonth" class="cal-nav">&gt;</button>
+        </div>
+        <div class="calendar-grid">
+          <div class="cal-day-name">S</div>
+          <div class="cal-day-name">M</div>
+          <div class="cal-day-name">T</div>
+          <div class="cal-day-name">W</div>
+          <div class="cal-day-name">T</div>
+          <div class="cal-day-name">F</div>
+          <div class="cal-day-name">S</div>
+        </div>
+        <div id="calendarDays" class="calendar-grid"></div>
+      </div>
 
-            playBtn.addEventListener("click", () => {
-                if (isPlaying) {
-                    audioPlayer.pause();
-                    playBtn.textContent = "🎧 Play Lofi Beats";
-                    musicStatus.textContent = "Status: Paused";
-                    isPlaying = false;
-                } else {
-                    audioPlayer.play().then(() => {
-                        playBtn.textContent = "⏸️ Pause Music";
-                        musicStatus.textContent = "Status: Playing Cozy Beats 🎶";
-                        isPlaying = true;
-                    }).catch(error => {
-                        console.error("Gagal memutar:", error);
-                        alert("Ketuk sekali lagi untuk mengizinkan audio diputar.");
-                    });
-                }
-            });
+      <!-- Note Card -->
+      <div class="card" style="grid-column: span 2;">
+        <div class="section-title">DAILY NOTES / QUOTE</div>
+        <textarea id="dailyNote" placeholder="Write your thoughts or daily quote here..."></textarea>
+        <div id="savedStatus">Auto-saved to device memory</div>
+      </div>
 
-            // 3. Logika Memori HP (Local Storage)
-            const noteInput = document.getElementById("user-note");
-            const saveBtn = document.getElementById("save-note-btn");
-            const saveMessage = document.getElementById("save-message");
+    </div>
 
-            // Ambil data yang tersimpan sebelumnya
-            const savedNote = localStorage.getItem("cozy_user_note");
-            if (savedNote) {
-                noteInput.value = savedNote;
-            }
+  </div>
 
-            // Simpan data saat tombol diklik
-            saveBtn.addEventListener("click", () => {
-                localStorage.setItem("cozy_user_note", noteInput.value);
-                saveMessage.textContent = "Tersimpan! ✅";
-                setTimeout(() => {
-                    saveMessage.textContent = "";
-                }, 2500);
-            });
-        });
-    </script>
+  <!-- Dock Navigation -->
+  <nav class="dock">
+    <button class="dock-item" id="dockMusic" title="Music">🎧</button>
+    <button class="dock-item" id="dockFocus" title="Focus Timer">⏳</button>
+    <button class="dock-item" id="dockNotes" title="Notes">📝</button>
+    <button class="dock-item" id="wallpaperToggle" title="Toggle Mood">🌸</button>
+    <button class="dock-item" id="fullscreenBtn" title="Fullscreen">⛶</button>
+  </nav>
+
+  <!-- Action Dialog -->
+  <div id="actionDialog" class="dialog-overlay">
+    <div class="dialog-card">
+      <div id="dialogEyebrow" class="dialog-eyebrow">NOTICE</div>
+      <div id="dialogTitle" class="dialog-title">Title</div>
+      <div id="dialogText" class="dialog-text">Description message here.</div>
+      <button id="dialogOk" class="dialog-ok">OK</button>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
 </body>
-          </html>
+</html>
